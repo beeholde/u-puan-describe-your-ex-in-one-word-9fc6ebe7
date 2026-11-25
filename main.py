@@ -1,17 +1,16 @@
-"""Describe Your Ex in One Word — entry program.
+"""Describe Your Ex in One Word — entry program v2.
 
 Writes a single word to /output/entry.txt: the one-word verdict on an ex.
 
-The word is "Encore": the show was over, the applause had died, and still
-there was another performance — the on-again ex, the repeat nobody asked
-for, same setlist, lesser reviews. It lands as a rueful self-own rather
-than an insult: you clapped, or they came back anyway, and here we are
-again. Six letters, one word, no punctuation tricks, no caption needed.
+The word is "Reheated": yesterday's leftovers warmed up one time too
+many — familiar, a little stale, and never as good as the first serving.
+It reads instantly as a verdict on going back to an ex, with the joke
+arriving on its own: one word, no punctuation tricks, no caption needed.
 """
 
 import os
 
-WORD = "Encore"
+WORD = "Reheated"
 
 
 def gate_ok(text: str) -> bool:
