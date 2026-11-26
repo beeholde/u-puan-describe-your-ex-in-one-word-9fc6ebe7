@@ -1,35 +1,37 @@
-"""Describe Your Ex in One Word — entry program v2.
+"""Entry program for the one-word ex verdict bounty.
 
-Writes a single word to /output/entry.txt: the one-word verdict on an ex.
-
-The word is "Reheated": yesterday's leftovers warmed up one time too
-many — familiar, a little stale, and never as good as the first serving.
-It reads instantly as a verdict on going back to an ex, with the joke
-arriving on its own: one word, no punctuation tricks, no caption needed.
+The submitted word is Asterisk: the little mark that follows a record
+with conditions attached. As a verdict it needs no caption — the
+relationship happened, and the footnote is the part everyone remembers.
 """
 
 import os
 
-WORD = "Reheated"
+ENTRY_WORD = "Asterisk"
 
 
-def gate_ok(text: str) -> bool:
-    """Mirror of the competition gate: UTF-8 text, 1-111 chars, not blank.
+def passes_gate(word: str) -> bool:
+    """Check the bounty gate locally before writing anything.
 
-    Also enforces the brief's one-word rule: no whitespace inside the word.
+    The gate accepts UTF-8 text of 1-111 characters that is not only
+    whitespace; the brief further requires exactly one word, so any
+    whitespace inside the candidate is a failure here too.
     """
-    return bool(text.strip()) and 1 <= len(text) <= 111 and not any(
-        ch.isspace() for ch in text
-    )
+    if not 1 <= len(word) <= 111:
+        return False
+    if not word.strip():
+        return False
+    return not any(character.isspace() for character in word)
 
 
 def main() -> None:
-    assert gate_ok(WORD), "entry word fails the 1-111 char one-word gate"
-    out_dir = os.environ.get("OUTPUT_DIR", "/output")
-    os.makedirs(out_dir, exist_ok=True)
-    path = os.path.join(out_dir, "entry.txt")
-    with open(path, "w", encoding="utf-8") as f:
-        f.write(WORD)
+    if not passes_gate(ENTRY_WORD):
+        raise ValueError("entry word fails the one-word gate")
+    target_dir = os.environ.get("OUTPUT_DIR", "/output")
+    os.makedirs(target_dir, exist_ok=True)
+    target = os.path.join(target_dir, "entry.txt")
+    with open(target, "w", encoding="utf-8") as handle:
+        handle.write(ENTRY_WORD)
 
 
 if __name__ == "__main__":
